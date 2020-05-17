@@ -41,10 +41,6 @@ function GetFilmList(){
                 // som nu förljdaktligen är inne i elementet benämnt displayContainer.
                 newdiv.appendChild(document.createTextNode(data));
                 
-                /*
-                printedFilmList.insertAdjacentHTML("beforeend", jsonForm[i].name);
-                */
-
             }
 
         });
@@ -54,15 +50,26 @@ function GetFilmList(){
 
 
 //Tar emot alla filmstudios
-fetch("https://localhost:44361/api/filmstudio")
-    .then(res => res.json())
-    .then(data => console.log(data));
-    
 
+function GetFilmstudio () {
+
+    fetch("https://localhost:44361/api/filmstudio")
+        .then(res => res.json())
+        .then(data => console.log(data));
+        
+
+
+}
+
+
+function GetFilmtrivia () {
     //Tar emot alla filmstrivia
-fetch("https://localhost:44361/api/filmTrivia")
-    .then(res => res.json())
-    .then(data => console.log(data));
+    fetch("https://localhost:44361/api/filmTrivia")
+        .then(res => res.json())
+        .then(data => console.log(data));
+
+}
+
 
     //Tar emot alla lånade filmer
 fetch("https://localhost:44361/api/rentedFilm")
@@ -154,7 +161,13 @@ fetch("https://localhost:44361/api/rentedFilm")
                         
 
                     }
+                    else{
 
+                        
+                        //header.insertAdjacentHTML("beforeend", '<h4 style="color:white;">Fel lösenord eller användarnamnn</h4>');
+
+                        console.log("Fel lösenord eller användarnamn")
+                    }
 
 
                 }
@@ -187,7 +200,7 @@ fetch("https://localhost:44361/api/rentedFilm")
         header.appendChild(createh2);        
         
         // NAVIGATION //
-        navigation.innerHTML = "";
+        navigation.innerHTML = " ";
         navigation.innerHTML = ('<h3>Låna film</h3><h3>Lämna tillbaka film</h3><h3>Skriv en trivia</h3>');
         
         
