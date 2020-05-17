@@ -1,5 +1,9 @@
 
 GetFilmList();
+GetFilmtrivia();
+
+
+var display = document.getElementById("displayContainer");
 
 
 //Funktionen för att ta emot alla filmer
@@ -18,28 +22,31 @@ function GetFilmList(){
                 
                 var data = jsonForm[i].name;
                 
-                
                 var placeholder = document.createElement('img');
                 placeholder.src = "./PlaceHolders/JurassicPark1.jpg";
                 
-
-                // Skapar ett nytt 'div' element
+                // Skapar ett nytt 'div' och 'h2' element
                 var newdiv = document.createElement('div');
+                var newH2 = document.createElement('h2');
 
-                
-                var display = document.getElementById("displayContainer");
+
+
+                newdiv.setAttribute("id", "filmTitle");
+
 
                 // "Hänger på" en ny div på elementet döpt till displayContainer i index.html.
                 display.appendChild(newdiv);
 
+
+
                 // Hänger på placeholdern på det nya div elementet 
-                newdiv.appendChild(placeholder);
+                display.appendChild(placeholder);
+
+                newdiv.appendChild(newH2);
 
                 console.log(placeholder);
                 
-                // Gör om den "fetchade" json datan och sätter in den i det nya div elementet,
-                // som nu förljdaktligen är inne i elementet benämnt displayContainer.
-                newdiv.appendChild(document.createTextNode(data));
+                newH2.appendChild(document.createTextNode(data));
                 
             }
 
@@ -57,16 +64,82 @@ function GetFilmstudio () {
         .then(res => res.json())
         .then(data => console.log(data));
         
-
-
-}
-
-
-function GetFilmtrivia () {
-    //Tar emot alla filmstrivia
-    fetch("https://localhost:44361/api/filmTrivia")
+        
+    }
+    
+    
+    function GetFilmtrivia () {
+        //Tar emot alla filmstrivia
+        fetch("https://localhost:44361/api/filmTrivia")
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then( function( res ){
+            
+            for(i = 0;i < res.length; i++){
+
+                var triviaText = res[i].trivia;
+
+                var text = document.createTextNode(triviaText);
+
+                console.log("Här är de trivia som blivit fetchade: ");
+                console.log(text);
+
+
+                // Kontrollerar om det finns några filmtitlar uppe på hemsidan
+                var filmTitle = document.getElementById("filmTitle");
+                
+                if(filmTitle === null){
+
+
+                    console.log("Det finns inga filmtitlar uppe på hemsidan");
+                    
+                }else{
+                    
+                    
+
+                    newP = document.createElement('p');
+
+                    var filmTitleTextform = document.createTextNode(triviaText);
+
+                    console.log(filmTitleTextform);
+                    
+                    filmTitle.appendChild(newP);
+
+                    newP.appendChild(filmTitleTextform);
+                    
+                    //filmTitle.insertAdjacentHTML("afterend", filmTitleTextform);
+
+
+
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                // triviaText = document.createTextNode(triviaText);
+    
+                // var newdiv = document.createElement('div');
+
+                // display.appendChild(newdiv);
+
+                // newdiv.appendChild(document.createTextNode(triviaText));
+                
+                // display.insertAdjacentHTML("afterend", triviaText);
+
+
+
+            }
+
+
+
+
+
+        });
+
+
 
 }
 
