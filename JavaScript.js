@@ -1,9 +1,11 @@
 
+
 GetFilmList();
 GetFilmtrivia();
 
-
 var display = document.getElementById("displayContainer");
+
+
 
 
 //Funktionen för att ta emot alla filmer
@@ -29,7 +31,7 @@ function GetFilmList(){
                 var newdiv = document.createElement('div');
                 var newH2 = document.createElement('h2');
 
-
+                
 
                 newdiv.setAttribute("id", "filmTitle");
 
@@ -47,6 +49,7 @@ function GetFilmList(){
                 console.log(placeholder);
                 
                 newH2.appendChild(document.createTextNode(data));
+
                 
             }
 
@@ -54,6 +57,10 @@ function GetFilmList(){
         
         
 }
+
+
+
+
 
 
 //Tar emot alla filmstudios
@@ -68,6 +75,9 @@ function GetFilmstudio () {
     }
     
     
+
+
+
     function GetFilmtrivia () {
         //Tar emot alla filmstrivia
         fetch("https://localhost:44361/api/filmTrivia")
@@ -106,7 +116,6 @@ function GetFilmstudio () {
 
                     newP.appendChild(filmTitleTextform);
                     
-                    //filmTitle.insertAdjacentHTML("afterend", filmTitleTextform);
 
 
 
@@ -119,16 +128,6 @@ function GetFilmstudio () {
                 
                 
                 
-                // triviaText = document.createTextNode(triviaText);
-    
-                // var newdiv = document.createElement('div');
-
-                // display.appendChild(newdiv);
-
-                // newdiv.appendChild(document.createTextNode(triviaText));
-                
-                // display.insertAdjacentHTML("afterend", triviaText);
-
 
 
             }
@@ -177,27 +176,32 @@ fetch("https://localhost:44361/api/rentedFilm")
         LoginPage(name);
     }
     else{
-                
+        
         StartPage();
+        
         
     }
     
     
-    
-    //localStorage.clear();
-    
     // STARTSIDAN
     function StartPage(){
         
-        header.innerHTML = "";
+        
+        
+        var newUserRegFlexContainer = document.getElementById("newUserRegFlexContainer");
+        
+        
+        header.innerHTML = " ";
         
         // HEADER //
-        header.insertAdjacentHTML("afterbegin", '<h1 id="heading0">SVENSKA FILMSTUDIOS </h1><h3 id="heading1">uthyrningstjänst</h3><input id="usernameInputbox" type="text" placeholder="Username...">    <input id="passwordInputbox" type="password" placeholder="Password..."><button id="loginButton">Login</button>');
+        header.insertAdjacentHTML("afterbegin", '<h1 id="heading0">SVENSKA FILMSTUDIOS </h1><h3 id="heading1">uthyrningstjänst</h3><input id="usernameInputbox" type="text" placeholder="Username..."><input id="passwordInputbox" type="password" placeholder="Password..."><button id="loginButton">Login</button>');
         
         // NAVIGATION //
-        navigation.innerHTML = "";
-        navigation.innerHTML = ('<h3 id="registerUser">Registrera ny användare</h3>');
+        navigation.innerHTML = " ";
+        navigation.innerHTML = ('<button id="registerUser">Registrera ny användare</button>');
         
+
+
         //Input text och knapp
         var loginButton = document.getElementById("loginButton");
                 
@@ -253,9 +257,34 @@ fetch("https://localhost:44361/api/rentedFilm")
             
         });
         
+        var registerButton = document.getElementById("registerUser");
+
+        registerButton.addEventListener("click", function () {
         
+            console.log("Du tryckte på 'Registrera ny användare'");
+            
         
+            newUserRegFlexContainer.innerHTML = ""; 
+            newUserRegFlexContainer.innerHTML = '<div id="nameInput"><h2>REGISTRERA NY ANVÄNDARE</h2><p>Förnamn: </p><input></dinput ><p>Efternamn:</p><input></input><p>Användarnamn: </p><input></input ><p>Lösenord:</p><input></input><button>REGISTRERA</button><button id="backToPage">GÅ TILLBAKA</button>';
+                
+            var backButton = document.getElementById("backToPage");
+
+
+            backButton.addEventListener("click", function () {
+
+                console.log("Du tryckte på 'Gå tillbaka' knappen.");
+                newUserRegFlexContainer.innerHTML = " ";
+                StartPage();
         
+
+
+            });
+
+
+        })
+
+
+
     }
     
         
@@ -302,10 +331,15 @@ fetch("https://localhost:44361/api/rentedFilm")
     
     //Skapar ny användare
     
-    function createNewUser(){
-        
-        
+    function CreateNewUser(){
         
         
     }
+
+
+
+    var newUserRegFlexContainer;
+    
+    
+
     
