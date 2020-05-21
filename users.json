@@ -1,22 +1,21 @@
 [
     {
-        "firstName": "Kalle",
-        "lastName": "Anka",
-        "userName": "Kalle",
-        "password": 1
-
+        "name": "Uddebo",
+        "password": "1234",
+        "verified": true
+        
+        
+        
     },
     {
-        "firstName": "Kristofer",
-        "lastName": "Buvlér",
-        "userName": "Kristofer",
-        "password": 1
+        "name": "Stockholm",
+        "password": "test",
+        "verified": true
     },
     {
-        "firstName": "Leif",
-        "lastName": "Silbersky",
-        "userName": "Silbersky",
-        "password": 1
+        "name": "Gislaved",
+	    "password": "qwer",
+	    "verified": true
 
 
 
