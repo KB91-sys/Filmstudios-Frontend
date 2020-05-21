@@ -1,11 +1,10 @@
-
-
-
+    
+    
     var header = document.getElementById("headerContent");
     var navigation = document.getElementById("navigation");
     var content = document.getElementById("displayContainer");
     var loanPage = document.getElementById("loanParentContainer");
-    
+    var filmTitle = document.getElementById("filmTitle");
     
     // Kollar om användaren är inloggad genom att söka genom localstorage
     if(localStorage.getItem("userId") !== null)
@@ -50,7 +49,7 @@
                 var newdiv = document.createElement('div');
                 var newH2 = document.createElement('h2');                
                 
-                newdiv.setAttribute("id", "filmTitle");
+                filmTitle = newdiv;
                 
                 // "Hänger på" en ny div på elementet döpt till content i index.html.
                 content.appendChild(newdiv);
@@ -63,20 +62,17 @@
                 console.log(placeholder);
                 
                 newH2.appendChild(document.createTextNode(filmName));
-                               
-               
-                console.log(filmNameArray)
-
+                                
                 var filmExist = filmNameArray.includes(filmName);
-
-                if(filmExist == false){
-                        
-
-                    console.log("Film/filmer som lagts till i listan: " + filmName + "\n");
-
-                    filmNameArray.push(filmName);
                 
-
+                if(filmExist == false){
+                    
+                    
+                    console.log("Film/filmer som lagts till i listan: " + filmName + "\n");
+                    
+                    filmNameArray.push(filmName);
+                    
+                    
                 }
                 
                 
@@ -86,73 +82,68 @@
         });
         
         
-}
-
-
-
-
-
-
-//Tar emot alla filmstudios
-
+    }
+    
+    
+    
+    
+    
+    
+    //Tar emot alla filmstudios
+    
     function GetFilmstudio () {
-
+        
         fetch("https://localhost:44361/api/filmstudio")
-            .then(res => res.json())
-            .then(data => console.log(data));
-            
-            
-        }
+        .then(res => res.json())
+        .then(data => console.log(data));
         
         
-
-
-
+    }
+        
+    
+        
+        
+    
+    
+    //Tar emot alla filmstrivia
+    
     function GetFilmtrivia () {
-        //Tar emot alla filmstrivia
         fetch("https://localhost:44361/api/filmTrivia")
         .then(res => res.json())
         .then( function( res ){
-            
-            for(i = 0;i < res.length; i++){
-
-                var triviaText = res[i].trivia;
-
-                var text = document.createTextNode(triviaText);
-
-                console.log("Här är de trivia som blivit fetchade: ");
-                console.log(text);
-
-
                 
-                
-                
-                // Kontrollerar om det finns några filmtitlar uppe på hemsidan
-                var filmTitle = document.getElementById("filmTitle");
-                
-                if(filmTitle === null){
-
-
-                    console.log("Det finns inga filmtitlar uppe på hemsidan");
+                for(i = 0;i < res.length; i++){
                     
-                }else{
+                    var triviaText = res[i].trivia;
                     
+                    var text = document.createTextNode(triviaText);
                     
-
-                    newP = document.createElement('p');
-
-                    var filmTitleTextform = document.createTextNode(triviaText);
-
-                    console.log(filmTitleTextform);
+                    console.log("Här är de trivia som blivit fetchade: ");
+                    console.log(text);
                     
-                    filmTitle.appendChild(newP);
-
-                    newP.appendChild(filmTitleTextform);
+                                        
+                    // Kontrollerar om det finns några filmtitlar uppe på hemsidan
                     
-
-
-
-                }
+                    if(filmTitle === null)
+                    {
+                        
+                        console.log("Det finns inga filmtitlar uppe på hemsidan");
+                        
+                    }else{
+                        
+                        
+                        
+                        newP = document.createElement('p');
+                        
+                        var filmTitleTextform = document.createTextNode(triviaText);
+                        
+                        filmTitle.appendChild(newP);
+                        
+                        newP.appendChild(filmTitleTextform);
+                        
+                        
+                    
+                    }
                 
                 
                 
@@ -161,42 +152,42 @@
                 
                 
                 
-
+                
 
             }
-
-
-
+            
+            
+            
 
             
         });
-
-
-
-    }
-
-
-        //Tar emot alla lånade filmer
-    fetch("https://localhost:44361/api/rentedFilm")
-        .then(res => res.json())
-        .then(data => console.log(data));
-
-
         
-
-
-
+        
+        
+    }
+    
+    
+    //Tar emot alla lånade filmer
+    fetch("https://localhost:44361/api/rentedFilm")
+    .then(res => res.json())
+    .then(data => console.log(data));
 
     
     
-
+    
+    
+    
+    
+    
+    
+    
     
     
     // NOTIS: InnerHTML ersätter allt med nytt material. Kan vara bra att använda när man vill ta bort en vy
     // insertadjacenthtml = dela upp och lägga till nytt innehåll i en vy
     
-
-
+    
+    
     // STARTSIDAN
     function StartPage(){
         
@@ -208,7 +199,8 @@
         
         loanPage.innerHTML = " ";
         header.innerHTML = " ";
-        
+        content.innerHTML = " ";
+
         // HEADER //
         header.insertAdjacentHTML("afterbegin", '<h1 id="heading0">SVENSKA FILMSTUDIOS </h1><h3 id="heading1">uthyrningstjänst</h3><input id="usernameInputbox" type="text" placeholder="Username..."><input id="passwordInputbox" type="password" placeholder="Password..."><button id="loginButton">Login</button>');
         
@@ -225,10 +217,10 @@
             
             
             var passwordInput = document.getElementById("passwordInputbox").value;
-            var usernameInput = document.getElementById("usernameInputbox").value;
+            var nameInput = document.getElementById("usernameInputbox").value;
             
             console.log("Du har tryckt på login knappen!");
-            console.log("Username: " + usernameInput + " Password: " + passwordInput);
+            console.log("Username: " + nameInput + " Password: " + passwordInput);
             
             
             
@@ -245,12 +237,12 @@
 
                 for(i = 0; i < jsonData.length; i++){
 
-                    if(usernameInput == jsonData[i].userName && passwordInput == jsonData[i].password){
+                    if(nameInput == jsonData[i].name && passwordInput == jsonData[i].password){
 
 
-                        localStorage.setItem("userId", usernameInput);
+                        localStorage.setItem("userId", nameInput);
                         
-                        LoginPage(usernameInput);
+                        LoginPage(nameInput);
                         
 
                     }
@@ -313,12 +305,13 @@
 
         
     // INLOGGAD ANVÄNDARES VY
-    function LoginPage(usernameInput){
+    function LoginPage(nameInput){
         
         
         header.innerHTML = " ";
         loanPage.innerHTML = " ";
-        
+        content.innerHTML = " ";
+
         GetFilmList();
         GetFilmtrivia();
         
@@ -331,7 +324,7 @@
 
         createh2.setAttribute("id", "welcomeMessage");
 
-        createh2.appendChild(document.createTextNode("Välkommen " + usernameInput));
+        createh2.appendChild(document.createTextNode("Välkommen " + nameInput + " Filmstudio!"));
         header.appendChild(createh2);        
         
         // NAVIGATION //
@@ -340,7 +333,7 @@
         navigation.innerHTML = ('<button id="loanReturn">Låna/Lämna tillbaka film</button><button id="triviaButton">Skriv en trivia</button>');
         
         
-        
+
         // LOGUT KNAPP //        
         var logout = document.getElementById("logoutButton");
         
@@ -362,15 +355,30 @@
             
             content.innerHTML = " ";
 
-            loanPage.innerHTML = '<div id="loanInfo"><p>[BIOGRAF]</p><div id="borrowedMovies"><p id="borrowedMovies" >Lånade filmer:</p></div></div>';
+            navigation.innerHTML = " ";
+            navigation.innerHTML = ('<button id="toStartpage">Tillbaka till startsidan</button><button id="loanReturn">Låna/Lämna tillbaka film</button><button id="triviaButton">Skriv en trivia</button>');
+        
+
+            loanPage.innerHTML = '<div id="loanInfo"><h2>Lånade filmer:</h2><div id="borrowedMovies"></div>';
              
-            //'<div id="availableFilmsParentContainer"></div>';
-            
             LoanReturnPage();                
             
         });
         
         
+        
+
+        var triviaButton = document.getElementById("triviaButton");
+
+        triviaButton.addEventListener("click", function (){
+
+            
+            console.log("Du tryckte på 'triviaButton'.")
+        
+            
+            AddTrivia();
+            
+        });
         
     }
     
@@ -378,28 +386,26 @@
     
     
     
-
-
-
-
-
-   
-    // Hämtar data från GetFilmList metoden och sätter in den i loanReturn (lånsidan) elementet
+    
+    
+    
+    
     function LoanReturnPage(){
         
-        var i = 0;
-
+        var containerId = 0;
+        var borrowedMoviesContainer = document.getElementById("borrowedMovies");
+        
+        
         for(const f of filmNameArray)
         {
-            i++;
-
+            
             console.log("En eller flera titlar finns redan med i listan.");
             
             var newDiv = document.createElement('div');
             
             var newButton1 = document.createElement('button');
             var newButton2 = document.createElement('button');
-                
+            
             newButton1.innerHTML = "LÅNA";
             newButton2.innerHTML = "RETURNERA";
             
@@ -408,82 +414,321 @@
             newDiv.appendChild(newButton2);
             
             
-            newDiv.setAttribute("id", "availableFilmsChildContainer" + i);
+            newDiv.setAttribute("id", "availableFilmsChildContainer" + containerId++);
             newButton1.setAttribute("class", "loanButton");
             newButton2.setAttribute("class", "returnButton");
-
-
+            
+            
             loanPage.appendChild(newDiv);           
-        
+            
         }
         
-    
-       var loanButton = document.getElementsByClassName("loanButton");
-       
+        
+                                
+        lentMoviesArray = [];
+        
+        
+        var loanButton = document.getElementsByClassName("loanButton");
+        var returnButton = document.getElementsByClassName("returnButton");
+
+        console.log("lentMoviesArray utanför metoden: " + lentMoviesArray);
+
         for(var i = 0; i < loanButton.length; i++){
-
+            
             loanButton[i].addEventListener("click", function(e) 
-            {
+            {                
+                // var borrowedinnerHTML = document.getElementById("borrowedMovies").innerHTML;
+                
+                var borrowedMoviesContainer = document.getElementById("borrowedMovies");
+
                 var parentElementId = e.target.parentNode.id;
-
-                console.log(parentElementId);
                 
-                var getTextvalue = document.getElementById(parentElementId).textContent;
-
-                console.log(getTextvalue);
-
-                var getFilmtitle = getTextvalue.replace("LÅNARETURNERA", "");
-
-                console.log(getFilmtitle);
+                var filmTitleValue = document.getElementById(parentElementId).textContent;
                 
                 
-                newdiv = document.createElement('div');
-
-                newdiv.insertAdjacentHTML("afterbegin", getFilmtitle);
-
-                var borrowedMovies = document.getElementById("borrowedMovies");
                 
-                borrowedMovies.appendChild(newdiv);
+                
+                var filmTitleValue = filmTitleValue.replace("LÅNARETURNERA", " ");
+                
+                
+                
+                
+                
+                // Kontrollerar huruvida filmens namn redan ligger i lentMoviesArray
+                var titleExist = lentMoviesArray.includes(filmTitleValue);
+                
+                console.log("lentMoviesArray: " + lentMoviesArray);
+
+                if(titleExist == false){
+                    
+                    
+                    // Sätter in element i array:en utanför metoden
+                    lentMoviesArray.push(filmTitleValue);
+                    
+                    
+                    
+                    console.log("Array innehåll = " + lentMoviesArray);
+                    
+                    
+                    borrowedMoviesContainer.innerHTML = " ";
+                    
+                    for(i = 0; i < lentMoviesArray.length; i++)
+                    {
+                        
+                        //borrowedinnerHTML.innerHTML = " ";
+                        
+
+                        borrowedMoviesContainer.insertAdjacentHTML("beforeend","<p>" + lentMoviesArray[i] + "</p>");
+                        
+
+                    }
+
+
+                }
+                
+
+
+
+
+                
+            });
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+                    
+        // KNAPP: RETURNERA
+
+        for(var i = 0; i < returnButton.length; i++){
+
+            returnButton[i].addEventListener("click", function(e){
+
+                console.log("Du tryckte på 'returnButton' knappen")
+            
+                
+                // var borrowedinnerHTML = document.getElementById("borrowedMovies").innerHTML;
+                
+                var borrowedMoviesContainer = document.getElementById("borrowedMovies");
+
+                var parentElementId = e.target.parentNode.id;
+                
+                var filmTitleValue = document.getElementById(parentElementId).textContent;
+                                                        
+                
+                var filmTitleValue = filmTitleValue.replace("LÅNARETURNERA", " ");
+                
+
+                var findElement = lentMoviesArray.find(e => e == filmTitleValue);
+                    
+                console.log(findElement);
+
+
+                const element = lentMoviesArray.indexOf(findElement)
+                
+
+                lentMoviesArray.splice(element, 1);
+                
+                borrowedMoviesContainer.innerHTML = " ";
+                    
+                for(i = 0; i < lentMoviesArray.length; i++)
+                {
+                    
+
+                    borrowedMoviesContainer.insertAdjacentHTML("beforeend","<p>" + lentMoviesArray[i] + "</p>");
+                    
+
+                }
+
+
 
             });
-
+        
+        
         }
 
-        // LOGUT KNAPP //        
+
+
+
+
+
+
+
+        // KNAPP: LÄGG TILL TRIVIA
+        var triviaButton = document.getElementById("triviaButton");
+
+        triviaButton.addEventListener("click", function (){
+
+            
+            console.log("Du tryckte på 'triviaButton'.")
+        
+            
+            AddTrivia();
+        
+        });
+
+        
+
+        // KNAPP: TILLBAKA TILL STARTSIDA  //
+        var toStartpage = document.getElementById("toStartpage");
+        
+        toStartpage.addEventListener("click", function () {
+
+            
+            
+            LoginPage();
+            
+
+        });
+        
+        // KNAPP: LOGUT //
         var logout = document.getElementById("logoutButton");
         
         logout.addEventListener("click", function () {
             console.log("Du tryckte på logout knappen. Går tillbaka till startPage"); 
             
             localStorage.clear();
+                      
             
             StartPage();
-        
-        
-        
         });
         
-
+        
     }
     
+    
+    
+
+    // LÄGG TILL TRIVIA
+    function AddTrivia() {
+        
+        triviaInput.innerHTML = "";
+        triviaInput.innerHTML = '<div id="printTriviainputbox"><h2>LÄGG TILL TRIVIA</h2><p>Film:</p><input id="input1"></input><p>Trivia:</p><input id="input2"></input><button id="addTriviaButton">LÄGG TILL TRIVIA</button><button id="exitTriviaBox">TILLBAKA</button></div>';
+        
+        
+        
+        console.log("Du tryckte på 'triviaButton'.")
+                
+        // LÄGGER TILL TRIVIA FRÅN ANVÄNDARINPUT
+
+        var addTriviaButton = document.getElementById("addTriviaButton");
+        var input2 = document.getElementById("input2");
+        var printTriviainputbox = document.getElementById("printTriviainputbox");
 
 
-    
-    //Skapar ny användare
-    
-    function CreateNewUser(){
+        addTriviaButton.addEventListener("click", function () {
+
+            console.log("Du tryckte på 'addTriviaButton'.");
+            
+            if(input2.value.length !== 0){
+                
+                console.log("input2.value: " + input2.value);
+                
+                
+                var newUsertrivia = input2.value;
+                
+                var newp = document.createElement('p');
+                
+                newp.appendChild(document.createTextNode(newUsertrivia));
+                
+                filmTitle.appendChild(newp);
+                
+                triviaInput.innerHTML = " ";
+            }
+            else{
+                console.log("input2.value: null");
+
+                
+                alert("Du har inte skrivit in någon trivia!");
+                
+            }
+            
+
+            
+            
+            
+        });
+
+
+        
+        // EXIT TRIVIA
+        exitTriviaBox = document.getElementById("exitTriviaBox");
+        
+        exitTriviaBox.addEventListener("click", function () {
+            
+            triviaInput.innerHTML = "";
+            
+            
+        });
         
         
     }
+    
+    
+    
+    
+    //var bmContainer = document.getElementById("borrowedMovies");
+        
+        //var bmContainer = bmContainer.querySelector('div').innerHTML;
+                
+        /*
+        var substr = getFilmtitle.substring(0, getFilmtitle.length);
+        var increasedAmount = substr.replace(substr, i++)
+        
+
+        var newGetFilmtitle = document.createTextNode(substr + increasedAmount);
+
+        console.log(newGetFilmtitle);
+
+        var borrowedFilmtitles = document.getElementById("borrowedMovies");
+
+        borrowedFilmtitles.replace(new RegExp(getFilmtitle, newGetFilmtitle));
+        */
+    
+        
+        /*
+        for(const f of filmNameArray){
+            
+            if(f == getFilmtitle)
+            {
+                console.log("Hittade en matchning.")
+                
+                var bmContainer = document.getElementById("borrowedMovies");
+                
+                
+                
+                var bmContainer = bmContainer.querySelector('div').innerHTML;
+                
+                var substr = bmContainer.substring(0, bmContainer.length - 1);
+                var increasedAmount = substr.replace(substr, i++)
+
+                var newFilmtitleString = document.createTextNode(substr + increasedAmount);
+
+                                            
+                borrowedMovies.appendChild(newFilmtitleString);
+
+                console.log("Lånad titel +1:" + newFilmtitleString);
 
 
 
-
-    function WriteTrivia(){
-
-        newUserRegregistration.innerHTML = '<div id="nameInput"><h2>REGISTRERA NY ANVÄNDARE</h2><p>Förnamn: </p><input></dinput ><p>Efternamn:</p><input></input></div>';
+            }
+            else{
 
 
-
-
-    }
+                console.log("hittade ingen matchning")
+            
+            }
+            */
+        
+        
+        
+    
+    
