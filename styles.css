@@ -60,20 +60,21 @@ header > button{
     display: flex;
     position: relative;
     left: 600px;
-
+    top: 35px;
 
     cursor: pointer;
 }
 
 
 
-header h2 {
+header > #welcomeMessage  {
 
     position: relative;
     left: 100px;
     color: white;
     font-size: 25px;
-    top: 43px;
+    top: 30px;
+    height: 30px;
 
 }
 
@@ -234,6 +235,8 @@ body{
 
 
 }
+
+
 
 
 
@@ -445,4 +448,26 @@ body{
     margin: 2px;
 
 
+}
+
+
+#userTrivia {
+
+    position: relative;
+    height: 300px;
+    width: 300px;
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    z-index: 10;
+    top: 100px;
+
+}
+
+#userTrivia > p{
+
+    align-self: center;
+    align-items: center;
+    text-align: center;
+    top: 200px;
 }
